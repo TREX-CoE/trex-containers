@@ -44,7 +44,12 @@ architecture version and use the Apptainer build command. For example, to build
 the container for the entire TREX-CoE suite on x86_64 architecture:
 
 ```bash
-cd x86_64/AVX2/all-software
+cd champ
+sudo apptainer build champ.sif champ.def
+```
+
+```bash
+cd all-software
 sudo apptainer build trex-coe.sif trex-coe.def
 ```
 
@@ -75,5 +80,4 @@ file for details.
 This work is supported by the TREX Center of Excellence, part of the European
 Union's Horizon 2020 research and innovation program.
 
-```
 

@@ -1,0 +1,58 @@
+BootStrap: docker
+From: ubuntu:22.04
+
+%labels
+    Author scemama@irsamc.ups-tlse.fr
+
+%help
+    Container for running CHAMP.
+
+%environment
+    export LANG="C"
+    export LANGUAGE=$LANG
+    export LC_ALL=$LANG
+    export OMP_NUM_THREADS=1
+
+%setup
+    mkdir -p ${APPTAINER_ROOTFS}/opt/install
+    cp environment.sh  ${APPTAINER_ROOTFS}/opt/
+    cp champ.def \
+       ../src/install_oneapi.sh           \
+       ../src/install_champ.sh            \
+       ../src/cleanup_oneapi.sh           \
+       ../src/setup_image.sh           \
+       ../src/install_trexio.sh        \
+       ../src/install_trexio_python.sh \
+       ../src/install_qmckl.sh         \
+       ${APPTAINER_ROOTFS}/opt/install
+
+%post
+    ARCH=$(uname -i)
+
+    cd /opt/install
+    ./setup_image.sh
+
+    [ $ARCH = x86_64 ] && ./install_oneapi.sh
+    ./install_trexio.sh
+    ./install_trexio_python.sh
+    ./install_qmckl.sh
+    ./install_champ.sh
+    [ $ARCH = x86_64 ] && ./cleanup_oneapi.sh
+
+    apt remove -y wget make pkg-config pgpgpg git python3-pip cmake libhdf5-dev libopenmpi-dev
+
+    apt install -y bash vim emacs-nox
+    apt autoremove -y
+    apt purge -y --auto-remove
+    rm -rf /var/lib/apt/lists/*
+
+    echo source /opt/environment.sh >> /etc/bash.bashrc
+
+
+%runscript
+    exec /bin/bash "$@"
+
+%test
+    ls /opt/champ/bin/vmc.mov1 || exit 1
+    ls /opt/champ/bin/dmc.mov1 || exit 1
+
