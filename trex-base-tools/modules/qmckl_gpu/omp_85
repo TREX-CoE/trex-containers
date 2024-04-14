@@ -1,0 +1,22 @@
+#%Module
+
+## Set the module name and version
+module-whatis "QMCkl library"
+
+set name qmckl_gpu
+set version omp_85
+
+conflict $name
+
+## Define the available versions
+
+## Loop over the versions and create module commands for each
+set version_path /opt/${name}_${version}
+
+## Create the module command for this version
+setenv QMCKL_GPU_DIR $version_path
+prepend-path LD_LIBRARY_PATH $version_path/lib
+prepend-path LIBRARY_PATH $version_path/lib
+prepend-path CPATH $version_path/include
+prepend-path C_INCLUDE_PATH $version_path/include
+prepend-path CPLUS_INCLUDE_PATH $version_path/include
