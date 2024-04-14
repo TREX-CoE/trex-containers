@@ -1,0 +1,17 @@
+#%Module
+
+## Set the module name and version
+##module-whatis "QMCkl library"
+
+set name maqao
+set version 2.20.0
+
+conflict $name
+
+## Define the available versions
+
+## Loop over the versions and create module commands for each
+set version_path /opt/${name}_${version}
+
+## Create the module command for this version
+prepend-path PATH $version_path/maqao.x86_64.2.20.0/bin/

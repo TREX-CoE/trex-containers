@@ -1,0 +1,18 @@
+#%Module
+
+## Set the module name and version
+module-whatis "TurboRVB"
+
+set name turborvb
+
+conflict $name
+
+## Define the available versions
+
+## Loop over the versions and create module commands for each
+set version_path /opt/${name}
+
+## Create the module command for this version
+prepend-path PATH $version_path/bin
+prepend-path LD_LIBRARY_PATH $version_path/lib
+prepend-path LIBRARY_PATH $version_path/lib
