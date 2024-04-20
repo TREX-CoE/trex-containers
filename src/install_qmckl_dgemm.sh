@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+cd /opt
+source environment.sh
 ARCH=$(uname -i)
 
 apt install -y wget make pkg-config autoconf libtool
