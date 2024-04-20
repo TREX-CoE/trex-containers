@@ -43,3 +43,6 @@ else
 fi
 make
 make check
+
+cd ..
+rm -rf qmckl_dgemm-1.0  v1.0.tar.gz
