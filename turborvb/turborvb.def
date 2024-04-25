@@ -1,0 +1,52 @@
+BootStrap: docker
+From: ubuntu:22.04
+
+%labels
+    Author pravod@gmail.com
+
+%help
+    Container for running TURBORVB.
+
+%environment
+    export LANG="C"
+    export LANGUAGE=$LANG
+    export LC_ALL=$LANG
+    export OMP_NUM_THREADS=1
+
+%setup
+    mkdir -p ${APPTAINER_ROOTFS}/opt/install
+    cp environment.sh  ${APPTAINER_ROOTFS}/opt/
+    cp turborvb.def \
+       ../src/install_oneapi.sh           \
+       ../src/install_turborvb.sh            \
+       ../src/install_turbogenius.sh            \
+       ../src/cleanup_oneapi.sh           \
+       ../src/setup_image.sh           \
+       ${APPTAINER_ROOTFS}/opt/install
+
+%post
+    ARCH=$(uname -i)
+
+    cd /opt/install
+    ./setup_image.sh
+
+    # Install necessary tools for TurboRVB
+    apt install -y bc
+
+    [ $ARCH = x86_64 ] && ./install_oneapi.sh
+    ./install_turborvb.sh
+    ./install_turbogenius.sh
+    [ $ARCH = x86_64 ] && ./cleanup_oneapi.sh
+
+    apt remove -y wget make pkg-config pgpgpg git python3-pip cmake libhdf5-dev libopenmpi-dev
+
+    apt install -y bash vim emacs-nox
+    apt autoremove -y
+    apt purge -y --auto-remove
+    rm -rf /var/lib/apt/lists/*
+
+    echo source /opt/environment.sh >> /etc/bash.bashrc
+
+%runscript
+    exec /bin/bash "$@"
+
