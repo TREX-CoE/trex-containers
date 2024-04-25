@@ -3,7 +3,8 @@
 cd /opt
 source environment.sh
 
-apt install -y wget pgpgpg
+APT_NOT_REQUIRED="wget pgpgpg"
+apt install -y $APT_NOT_REQUIRED
 
 wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
 | gpg --dearmor \
@@ -37,3 +38,8 @@ source environment.sh
 ifort --version || exit 1
 icx --version || exit 1
 mpirun hostname || exit 1
+
+# Clean up
+
+apt remove -y $APT_NOT_REQUIRED
+

@@ -4,6 +4,9 @@ From: ubuntu:22.04
 %labels
     Author scemama@irsamc.ups-tlse.fr
 
+%arguments
+   apt_cacher="no"
+
 %help
     Container for running CHAMP.
 
@@ -28,6 +31,7 @@ From: ubuntu:22.04
 
 %post
     ARCH=$(uname -i)
+    export APT_CACHER={{ apt_cacher }}
 
     cd /opt/install
     ./setup_image.sh
@@ -39,15 +43,7 @@ From: ubuntu:22.04
     ./install_champ.sh
     [ $ARCH = x86_64 ] && ./cleanup_oneapi.sh
 
-    apt remove -y wget make pkg-config pgpgpg git python3-pip cmake libhdf5-dev libopenmpi-dev
-
-    apt install -y bash vim emacs-nox
-    apt autoremove -y
-    apt purge -y --auto-remove
-    rm -rf /var/lib/apt/lists/*
-
-    echo source /opt/environment.sh >> /etc/bash.bashrc
-
+    ./cleanup.sh
 
 %runscript
     exec /bin/bash "$@"

@@ -4,13 +4,15 @@ cd /opt
 source environment.sh
 ARCH=$(uname -i)
 
-apt install -y wget make pkg-config
+APT_NOT_REQUIRED="wget make pkg-config"
+apt install -y $APT_NOT_REQUIRED
 
 which icx \
 && export CC=icx \
 || (apt install -y gcc libmkl-rt ; \
     cp /lib/x86_64-linux-gnu/libblas.so.3 /lib/x86_64-linux-gnu/libblas.so; \
-    cp /lib/x86_64-linux-gnu/liblapack.so.3 /lib/x86_64-linux-gnu/liblapack.so)
+    cp /lib/x86_64-linux-gnu/liblapack.so.3 /lib/x86_64-linux-gnu/liblapack.so; \
+    echo libmkl-rt >> /opt/install/apt_required)
 
 which ifort \
 && export FC=ifort \
@@ -70,4 +72,5 @@ cd ..
 cd ..
 rm -rf qmckl-1.0.0  qmckl-1.0.0.tar.gz
 
+apt remove -y $APT_NOT_REQUIRED
 

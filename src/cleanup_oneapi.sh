@@ -7,3 +7,4 @@ apt remove -y \
    gcc gfortran
 
 rm -f /opt/icx.cfg /opt/ifort.cfg
+rm -rf /opt/intel/oneapi/compiler/*/bin/

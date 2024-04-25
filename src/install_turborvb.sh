@@ -8,17 +8,20 @@ ln -sf /usr/bin/python3 /usr/bin/python || :
 # Install dependencies
 # --------------------
 
-apt install -y cmake python3 git make gcc g++
+APT_REQUIRED="python3"
+APT_NOT_REQUIRED="cmake git make gcc g++"
+apt install -y $APT_NOT_REQUIRED $APT_REQUIRED
 
-git clone --depth=1 https://github.com/sissaschool/turborvb.git
+git clone --depth=1 https://github.com/sissaschool/turborvb.git turbo_src
 
-cd turborvb
+cd turbo_src
 
 if [ $ARCH = x86_64 ] ; then
   echo "-march=core-avx2" >> /opt/ifort.cfg
   echo "-march=core-avx2" >> /opt/icx.cfg
 
   cmake -S. -Bbuild \
+      -DCMAKE_INSTALL_PREFIX="/opt/turborvb" \
       -DCMAKE_Fortran_COMPILER="ifort" \
       -DCMAKE_C_COMPILER="icx" \
       -DEXT_SERIAL="ON" \
@@ -29,10 +32,13 @@ if [ $ARCH = x86_64 ] ; then
 elif [ $ARCH = aarch64 ] ; then
 
   apt install -y openmpi-bin libopenmpi-dev
+  APT_REQUIRED="$APT_REQUIRED libopenblas0"
+  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-dev"
 
   cmake -S. -Bbuild \
-      -DCMAKE_Fortran_COMPILER="ifort" \
-      -DCMAKE_C_COMPILER="icx" \
+      -DCMAKE_INSTALL_PREFIX="/opt/turborvb" \
+      -DCMAKE_Fortran_COMPILER="gfortran" \
+      -DCMAKE_C_COMPILER="gcc" \
       -DEXT_SERIAL="ON" \
       -DEXT_PARALLEL="ON" \
       -DEXT_OPT="ON"
@@ -43,3 +49,18 @@ cmake --build build -j 8
 
 # Test
 cmake --build build --target test
+
+# Install in /opt/turborvb
+cmake --build build --target install
+cp -f bin/*.sh bin/*.py /opt/turborvb/bin/
+
+
+# Clean up compilation files
+rm -rf /opt/turbo_src
+rm -rf /opt/turborvb/test_tools/
+rm -rf /opt/turborvb/lib/
+
+# Clean up
+
+apt remove -y $APT_NOT_REQUIRED
+echo $APT_REQUIRED >> /opt/install/apt_required

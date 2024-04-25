@@ -4,17 +4,20 @@ cd /opt
 source environment.sh
 ARCH=$(uname -i)
 
-apt install -y wget make pkg-config autoconf libtool
+APT_NOT_REQUIRED="wget make pkg-config autoconf libtool"
+apt install -y $APT_NOT_REQUIRED
 
 which icx \
 && export CC=icx \
 || (apt install -y gcc libmkl-rt libopenblas-dev ; \
     cp /lib/x86_64-linux-gnu/libblas.so.3 /lib/x86_64-linux-gnu/libblas.so; \
-    cp /lib/x86_64-linux-gnu/liblapack.so.3 /lib/x86_64-linux-gnu/liblapack.so)
+    cp /lib/x86_64-linux-gnu/liblapack.so.3 /lib/x86_64-linux-gnu/liblapack.so ;\
+    echo libmkl-rt >> /opt/install/apt_required)
 
 which ifort \
 && export FC=ifort \
-|| apt install -y gfortran libopenblas-dev
+|| (apt install -y gfortran libopenblas-dev ;\
+    echo libopenblas >> /opt/install/apt_required)
 
 if [ $ARCH = x86_64 ] ; then
   if [ $CC = icx ] ; then
@@ -46,3 +49,6 @@ make check
 
 cd ..
 rm -rf qmckl_dgemm-1.0  v1.0.tar.gz
+
+apt remove -y $APT_NOT_REQUIRED
+

@@ -8,8 +8,9 @@ ln -s /usr/bin/python3 /usr/bin/python || :
 # Install dependencies
 # --------------------
 
-apt install -y cmake python3 git make gcc g++
-
+APT_REQUIRED="python3"
+APT_NOT_REQUIRED="cmake git make gcc g++"
+apt install -y $APT_REQUIRED $APT_NOT_REQUIRED 
 
 git clone --depth=1 https://github.com/filippi-claudia/champ.git
 
@@ -40,6 +41,15 @@ cmake --build build -j 8
 
 rm -rf compile-* docs tests build lib
 
+
 # Test
+
 ls bin/vmc.mov1 || exit 1
 ls bin/dmc.mov1 || exit 1
+
+
+# Clean up
+
+apt remove -y $APT_NOT_REQUIRED
+echo $APT_REQUIRED >> /opt/install/apt_required
+
