@@ -31,9 +31,10 @@ if [ $ARCH = x86_64 ] ; then
 # This was not tested yet
 elif [ $ARCH = aarch64 ] ; then
 
-  apt install -y openmpi-bin libopenmpi-dev
-  APT_REQUIRED="$APT_REQUIRED libopenblas0"
-  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-serial-dev"
+  APT_REQUIRED="$APT_REQUIRED libopenblas0 openmpi-bin"
+  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-serial-dev libopenmpi-dev"
+  apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
+
   export OMPI_ALLOW_RUN_AS_ROOT=1
   export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 
