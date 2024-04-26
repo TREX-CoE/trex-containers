@@ -4,7 +4,7 @@ cd /opt
 source environment.sh
 
 APT_REQUIRED="hdf5-tools"
-APT_NOT_REQUIRED="libhdf5-dev wget make gcc gfortran"
+APT_NOT_REQUIRED="libhdf5-dev wget make"
 apt install -y $APT_NOT_REQUIRED $APT_REQUIRED
 
 wget https://github.com/TREX-CoE/trexio/releases/download/v2.4.2/trexio-2.4.2.tar.gz

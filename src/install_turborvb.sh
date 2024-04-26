@@ -9,7 +9,7 @@ ln -sf /usr/bin/python3 /usr/bin/python || :
 # --------------------
 
 APT_REQUIRED="python3 bc"
-APT_NOT_REQUIRED="cmake git make gcc gfortran"
+APT_NOT_REQUIRED="cmake git make"
 apt install -y $APT_NOT_REQUIRED $APT_REQUIRED
 
 git clone --depth=1 https://github.com/sissaschool/turborvb.git turbo_src
@@ -17,8 +17,6 @@ git clone --depth=1 https://github.com/sissaschool/turborvb.git turbo_src
 cd turbo_src
 
 if [ $ARCH = x86_64 ] ; then
-  echo "-march=core-avx2" >> /opt/ifort.cfg
-  echo "-march=core-avx2" >> /opt/icx.cfg
 
   cmake -S. -Bbuild \
       -DCMAKE_INSTALL_PREFIX="/opt/turborvb" \
@@ -30,10 +28,6 @@ if [ $ARCH = x86_64 ] ; then
 
 # This was not tested yet
 elif [ $ARCH = aarch64 ] ; then
-
-  APT_REQUIRED="$APT_REQUIRED libopenblas0 openmpi-bin"
-  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-serial-dev libopenmpi-dev"
-  apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
 
   export OMPI_ALLOW_RUN_AS_ROOT=1
   export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1

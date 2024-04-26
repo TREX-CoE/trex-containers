@@ -9,7 +9,7 @@ ln -s /usr/bin/python3 /usr/bin/python || :
 # --------------------
 
 APT_REQUIRED="python3"
-APT_NOT_REQUIRED="cmake git make gcc g++ gfortran"
+APT_NOT_REQUIRED="cmake git make"
 apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
 
 git clone --depth=1 https://github.com/filippi-claudia/champ.git
@@ -17,8 +17,6 @@ git clone --depth=1 https://github.com/filippi-claudia/champ.git
 cd champ
 
 if [ $ARCH = x86_64 ] ; then
-  echo "-march=core-avx2" >> /opt/ifort.cfg
-  echo "-march=core-avx2" >> /opt/icx.cfg
 
   cmake -S. -Bbuild \
       -DCMAKE_Fortran_COMPILER="mpiifort" \
@@ -27,10 +25,6 @@ if [ $ARCH = x86_64 ] ; then
       -DVECTORIZATION="avx2"
 
 elif [ $ARCH = aarch64 ] ; then
-
-  APT_REQUIRED="$APT_REQUIRED libopenblas0 openmpi-bin"
-  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-serial-dev libopenmpi-dev"
-  apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
 
   export OMPI_ALLOW_RUN_AS_ROOT=1
   export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1

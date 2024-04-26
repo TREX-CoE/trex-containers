@@ -4,7 +4,7 @@ cd /opt
 source environment.sh
 
 APT_REQUIRED="python3 git hdf5-tools"
-APT_NOT_REQUIRED="python3-pip pkg-config gcc python3-dev libhdf5-dev"
+APT_NOT_REQUIRED="python3-pip pkg-config python3-dev libhdf5-dev"
 apt install -y $APT_NOT_REQUIRED $APT_REQUIRED
 
 ln -sf /usr/bin/python3 /usr/bin/python || :
