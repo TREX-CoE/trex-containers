@@ -4,19 +4,16 @@ cd /opt
 source environment.sh
 ARCH=$(uname -i)
 
-APT_NOT_REQUIRED="wget make pkg-config"
+APT_NOT_REQUIRED="wget make pkg-config gcc gfortran"
 apt install -y $APT_NOT_REQUIRED
 
 which icx \
 && export CC=icx \
-|| (apt install -y gcc libmkl-rt ; \
+|| (apt install -y libmkl-rt ; \
     cp /lib/x86_64-linux-gnu/libblas.so.3 /lib/x86_64-linux-gnu/libblas.so; \
     cp /lib/x86_64-linux-gnu/liblapack.so.3 /lib/x86_64-linux-gnu/liblapack.so; \
     echo libmkl-rt >> /opt/install/apt_required)
 
-which ifort \
-&& export FC=ifort \
-|| apt install -y gfortran
 
 if [ $ARCH = x86_64 ] ; then
   if [ $CC = icx ] ; then

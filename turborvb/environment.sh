@@ -4,10 +4,14 @@ export LC_ALL=$LANG
 export DEBIAN_FRONTEND=noninteractive
 export ARCH=$(uname -i)
 
-[ $ARCH = x86_64 ] &&  source /opt/intel/oneapi/setvars.sh &>/dev/null || :
+if [ $ARCH = x86_64 ] ; then
+        source /opt/intel/oneapi/setvars.sh &>/dev/null || :
+        export FC=ifort
+        export CC=icx
+else
+        export FC=gfortran
+        export CC=gcc
+fi
 
-export FC=ifort
-export CC=icx
 export OMP_NUM_THREADS=1
-
 export PATH=$PATH:/opt/turborvb/bin

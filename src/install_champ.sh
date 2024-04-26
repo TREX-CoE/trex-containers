@@ -9,8 +9,8 @@ ln -s /usr/bin/python3 /usr/bin/python || :
 # --------------------
 
 APT_REQUIRED="python3"
-APT_NOT_REQUIRED="cmake git make gcc g++"
-apt install -y $APT_REQUIRED $APT_NOT_REQUIRED 
+APT_NOT_REQUIRED="cmake git make gcc g++ gfortran"
+apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
 
 git clone --depth=1 https://github.com/filippi-claudia/champ.git
 
@@ -28,12 +28,14 @@ if [ $ARCH = x86_64 ] ; then
 
 elif [ $ARCH = aarch64 ] ; then
 
-  apt install -y openmpi-bin libopenmpi-dev
+  APT_REQUIRED="$APT_REQUIRED openmpi-bin"
+  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenmpi-dev"
+  apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
 
   cmake -S. -Bbuild \
       -DCMAKE_Fortran_COMPILER="mpif90" \
       -DENABLE_TREXIO=ON \
-      -DENABLE_QMCKL=ON 
+      -DENABLE_QMCKL=ON
 
 fi
 

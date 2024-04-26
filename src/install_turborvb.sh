@@ -9,7 +9,7 @@ ln -sf /usr/bin/python3 /usr/bin/python || :
 # --------------------
 
 APT_REQUIRED="python3 bc"
-APT_NOT_REQUIRED="cmake git make gcc g++"
+APT_NOT_REQUIRED="cmake git make gcc gfortran"
 apt install -y $APT_NOT_REQUIRED $APT_REQUIRED
 
 git clone --depth=1 https://github.com/sissaschool/turborvb.git turbo_src

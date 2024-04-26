@@ -4,7 +4,7 @@ cd /opt
 source environment.sh
 ARCH=$(uname -i)
 
-APT_NOT_REQUIRED="wget make pkg-config autoconf libtool"
+APT_NOT_REQUIRED="wget make pkg-config autoconf libtool gcc gfortran"
 apt install -y $APT_NOT_REQUIRED
 
 which icx \
