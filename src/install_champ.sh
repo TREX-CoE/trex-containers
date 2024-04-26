@@ -28,9 +28,12 @@ if [ $ARCH = x86_64 ] ; then
 
 elif [ $ARCH = aarch64 ] ; then
 
-  APT_REQUIRED="$APT_REQUIRED openmpi-bin"
-  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenmpi-dev"
+  APT_REQUIRED="$APT_REQUIRED libopenblas0 openmpi-bin"
+  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-serial-dev libopenmpi-dev"
   apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
+
+  export OMPI_ALLOW_RUN_AS_ROOT=1
+  export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 
   cmake -S. -Bbuild \
       -DCMAKE_Fortran_COMPILER="mpif90" \
@@ -41,9 +44,6 @@ fi
 
 cmake --build build -j 8
 
-rm -rf compile-* docs tests build lib
-
-
 # Test
 
 ls bin/vmc.mov1 || exit 1
@@ -51,6 +51,7 @@ ls bin/dmc.mov1 || exit 1
 
 
 # Clean up
+rm -rf compile-* docs tests build lib
 
 apt remove -y $APT_NOT_REQUIRED
 echo $APT_REQUIRED >> /opt/install/apt_required
