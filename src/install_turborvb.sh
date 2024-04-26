@@ -33,7 +33,7 @@ elif [ $ARCH = aarch64 ] ; then
 
   apt install -y openmpi-bin libopenmpi-dev
   APT_REQUIRED="$APT_REQUIRED libopenblas0"
-  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-dev"
+  APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-serial-dev"
 
   cmake -S. -Bbuild \
       -DCMAKE_INSTALL_PREFIX="/opt/turborvb" \
