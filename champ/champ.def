@@ -37,12 +37,12 @@ From: ubuntu:22.04
     cd /opt/install
     ./setup_image.sh
 
-    [ $ARCH = x86_64 ] && ./install_compilers.sh
+    ./install_compilers.sh
     ./install_trexio.sh
     ./install_trexio_python.sh
     ./install_qmckl.sh
     ./install_champ.sh
-    [ $ARCH = x86_64 ] && ./cleanup_compilers.sh
+    ./cleanup_compilers.sh
 
     ./cleanup.sh
 
