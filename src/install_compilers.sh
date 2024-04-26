@@ -50,7 +50,7 @@ if [ $ARCH = x86_64 ] ; then
 
 elif [ $ARCH = aarch64 ] ; then
 
-  apt install -y gcc g++ gfortran libopenblas0 openmpi-bin libopenblas-dev libopenmpi-dev
+  apt install -y build-essential gcc g++ gfortran libopenblas0 openmpi-bin libopenblas-dev libopenmpi-dev
 
 else 
 

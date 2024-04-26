@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+cd /opt
+source environment.sh
+
 if [ $ARCH = "x86_64" ] ; then
 
   apt remove -y \
@@ -14,7 +17,7 @@ if [ $ARCH = "x86_64" ] ; then
 
 elif [ $ARCH = "aarch64" ] ; then
 
-  apt remove -y gcc g++ gfortran libopenblas-dev libopenmpi-dev
+  apt remove -y build-essential gcc g++ gfortran libopenblas-dev libopenmpi-dev
 
 else
 

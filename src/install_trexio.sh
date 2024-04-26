@@ -3,7 +3,7 @@
 cd /opt
 source environment.sh
 
-APT_REQUIRED="hdf5-tools"
+APT_REQUIRED="hdf5-tools hdf5-helpers libhdf5-cpp-103-1"
 APT_NOT_REQUIRED="libhdf5-dev wget make"
 apt install -y $APT_NOT_REQUIRED $APT_REQUIRED
 
