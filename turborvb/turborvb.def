@@ -25,7 +25,7 @@ From: ubuntu:22.04
     cp turborvb.def \
        ../src/install_oneapi.sh           \
        ../src/install_turborvb.sh            \
-       ../src/install_trexio.sh            \
+       ../src/install_trexio_python.sh      \
        ../src/install_turbogenius.sh            \
        ../src/cleanup_oneapi.sh           \
        ../src/setup_image.sh           \
