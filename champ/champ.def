@@ -22,11 +22,12 @@ From: ubuntu:22.04
     cp champ.def \
        ../src/install_oneapi.sh           \
        ../src/install_champ.sh            \
+       ../src/install_trexio_python.sh \
+       ../src/install_trexio.sh        \
+       ../src/install_qmckl.sh         \
        ../src/cleanup_oneapi.sh           \
        ../src/setup_image.sh           \
-       ../src/install_trexio.sh        \
-       ../src/install_trexio_python.sh \
-       ../src/install_qmckl.sh         \
+       ../src/cleanup.sh \
        ${APPTAINER_ROOTFS}/opt/install
 
 %post
