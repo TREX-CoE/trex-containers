@@ -23,11 +23,11 @@ From: ubuntu:22.04
     mkdir -p ${APPTAINER_ROOTFS}/opt/install
     cp environment.sh  ${APPTAINER_ROOTFS}/opt/
     cp turborvb.def \
-       ../src/install_oneapi.sh           \
+       ../src/install_compilers.sh           \
        ../src/install_turborvb.sh            \
        ../src/install_trexio_python.sh      \
        ../src/install_turbogenius.sh            \
-       ../src/cleanup_oneapi.sh           \
+       ../src/cleanup_compilers.sh           \
        ../src/setup_image.sh           \
        ../src/cleanup.sh \
        ${APPTAINER_ROOTFS}/opt/install
@@ -39,11 +39,11 @@ From: ubuntu:22.04
     cd /opt/install
     ./setup_image.sh
 
-    [ $ARCH = x86_64 ] && ./install_oneapi.sh
+    [ $ARCH = x86_64 ] && ./install_compilers.sh
     ./install_turborvb.sh
     [ "{{ turbogenius }}" = "yes" ] && ./install_trexio_python.sh
     [ "{{ turbogenius }}" = "yes" ] && ./install_turbogenius.sh
-    [ $ARCH = x86_64 ] && ./cleanup_oneapi.sh
+    [ $ARCH = x86_64 ] && ./cleanup_compilers.sh
 
     ./cleanup.sh
 
