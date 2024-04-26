@@ -46,6 +46,8 @@ elif [ $ARCH = aarch64 ] ; then
       -DEXT_PARALLEL="ON" \
       -DEXT_OPT="ON"
 
+else
+  exit 1
 fi
 
 cmake --build build -j 8
