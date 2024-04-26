@@ -8,7 +8,7 @@ ln -sf /usr/bin/python3 /usr/bin/python || :
 # Install dependencies
 # --------------------
 
-APT_REQUIRED="python3"
+APT_REQUIRED="python3 bc"
 APT_NOT_REQUIRED="cmake git make gcc g++"
 apt install -y $APT_NOT_REQUIRED $APT_REQUIRED
 
@@ -34,6 +34,8 @@ elif [ $ARCH = aarch64 ] ; then
   apt install -y openmpi-bin libopenmpi-dev
   APT_REQUIRED="$APT_REQUIRED libopenblas0"
   APT_NOT_REQUIRED="$APT_NOT_REQUIRED libopenblas-serial-dev"
+  export OMPI_ALLOW_RUN_AS_ROOT=1
+  export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 
   cmake -S. -Bbuild \
       -DCMAKE_INSTALL_PREFIX="/opt/turborvb" \

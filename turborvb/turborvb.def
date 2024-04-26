@@ -25,6 +25,7 @@ From: ubuntu:22.04
     cp turborvb.def \
        ../src/install_oneapi.sh           \
        ../src/install_turborvb.sh            \
+       ../src/install_trexio.sh            \
        ../src/install_turbogenius.sh            \
        ../src/cleanup_oneapi.sh           \
        ../src/setup_image.sh           \
@@ -38,11 +39,9 @@ From: ubuntu:22.04
     cd /opt/install
     ./setup_image.sh
 
-    # Install necessary tools for TurboRVB
-    apt install -y bc
-
     [ $ARCH = x86_64 ] && ./install_oneapi.sh
     ./install_turborvb.sh
+    [ "{{ turbogenius }}" = "yes" ] && ./install_trexio_python.sh
     [ "{{ turbogenius }}" = "yes" ] && ./install_turbogenius.sh
     [ $ARCH = x86_64 ] && ./cleanup_oneapi.sh
 

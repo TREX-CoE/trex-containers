@@ -4,7 +4,7 @@ export LC_ALL=$LANG
 export DEBIAN_FRONTEND=noninteractive
 export ARCH=$(uname -i)
 
-source /opt/intel/oneapi/setvars.sh || :
+[ $ARCH = x86_64 ] &&  source /opt/intel/oneapi/setvars.sh &>/dev/null || :
 
 export FC=ifort
 export CC=icx
