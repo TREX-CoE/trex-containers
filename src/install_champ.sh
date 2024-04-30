@@ -3,8 +3,6 @@
 cd /opt
 source environment.sh
 
-ln -s /usr/bin/python3 /usr/bin/python || :
-
 # Install dependencies
 # --------------------
 

@@ -12,6 +12,8 @@ if [ $APT_CACHER = yes ] ; then
     echo "Acquire::http { Proxy \"http://localhost:3142\"; };" > /etc/apt/apt.conf.d/01proxy
 fi
 
+update-alternatives --install /usr/bin/python python /usr/bin/python3  20
+
 apt update
 apt install -y bash
 
