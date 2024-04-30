@@ -8,7 +8,7 @@ From: ubuntu:22.04
    apt_cacher="no"
 
 %help
-    Container for running CHAMP.
+    Container for running QP2.
 
 %environment
     export LANG="C"
@@ -19,7 +19,7 @@ From: ubuntu:22.04
 %setup
     mkdir -p ${APPTAINER_ROOTFS}/opt/install
     cp environment.sh  ${APPTAINER_ROOTFS}/opt/
-    cp champ.def \
+    cp qp2.def \
        ../src/install_compilers.sh           \
        ../src/install_qp2.sh            \
        ../src/install_trexio_python.sh \
