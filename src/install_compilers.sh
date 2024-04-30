@@ -50,7 +50,27 @@ if [ $ARCH = x86_64 ] ; then
 
 elif [ $ARCH = aarch64 ] ; then
 
-  apt install -y build-essential gcc g++ gfortran libopenblas0 openmpi-bin libopenblas-dev libopenmpi-dev
+  sudo update-alternatives --remove-all gcc || :
+  sudo update-alternatives --remove-all g++ || :
+  sudo update-alternatives --remove-all gfortran || :
+
+  apt install -y build-essential gcc-12 g++-12 gfortran-12 libopenblas0 openmpi-bin libopenblas-dev libopenmpi-dev
+
+  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11  10
+  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12  20
+
+  sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11  10
+  sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12  20
+
+  sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-11  10
+  sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-12  20
+
+  sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30
+  sudo update-alternatives --set cc /usr/bin/gcc
+
+  sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30
+  sudo update-alternatives --set c++ /usr/bin/g++
+
 
 else 
 
