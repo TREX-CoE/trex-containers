@@ -18,7 +18,6 @@ git clone https://github.com/QuantumPackage/qp2.git \
 cd /opt/qp2
 
 ./configure -i all
-./configure -i qmckl
 pip install trexio
 
 if [ $ARCH = x86_64 ] ; then
