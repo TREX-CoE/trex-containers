@@ -14,9 +14,9 @@ if [ $ARCH = x86_64 ] ; then
 
 elif [ $ARCH = aarch64 ] ; then
 
-    export CFLAGS="-mcpu=armv8-a -fno-signaling-nans -fno-trapping-math -freciprocal-math -fno-signed-zeros \
+    export CFLAGS="-march=armv8-a -fno-signaling-nans -fno-trapping-math -freciprocal-math -fno-signed-zeros \
                    -fno-math-errno -ffinite-math-only -funroll-loops -O3 -ftree-vectorize -flto -fopenmp-simd"
-    export FCFLAGS="-g -mcpu=armv8-a -O2 -fstack-arrays -ffast-math -flto -ftree-vectorize -fno-stack-protector"
+    export FCFLAGS="-g -march=armv8-a -O2 -fstack-arrays -ffast-math -flto -ftree-vectorize -fno-stack-protector"
 
 else
 
