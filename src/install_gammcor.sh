@@ -34,9 +34,9 @@ EOF
 elif [ $ARCH = aarch64 ] ; then
 
 cd xcfun
-sed -i "s/g++/g++-12/g" Makefile
-sed -i "s/gcc/gcc-12/g" Makefile
-sed -i "s/gfortran/gfortran-12/g" Makefile
+sed -i "s/g++/g++-12 -fPIC/g" Makefile
+sed -i "s/gcc/gcc-12 -fPIC/g" Makefile
+sed -i "s/gfortran/gfortran-12 -fPIC/g" Makefile
 make -f Makefile.gcc
 cd ..
 
