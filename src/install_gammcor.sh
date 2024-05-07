@@ -17,8 +17,8 @@ mkdir OBJ
 if [ $ARCH = x86_64 ] ; then
 
 cd xcfun
-sed -i "s/icc/icx" Makefile
-sed -i "s/icpc/icpx" Makefile
+sed -i "s/icc/icx/g" Makefile
+sed -i "s/icpc/icpx/g" Makefile
 make -j 8 -f Makefile
 cd ..
 
