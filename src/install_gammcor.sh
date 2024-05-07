@@ -21,8 +21,8 @@ cd ..
 if [ $ARCH = x86_64 ] ; then
 
 cat << EOF > Makefile
-FCC = ifort
-FFLAGS = -assume byterecl -heap-arrays -mkl=parallel -qopenmp -I xcfun/fortran -O3 -g
+FCC = ifort -mkl=parallel -qopenmp
+FFLAGS = -assume byterecl -heap-arrays -I xcfun/fortran -O3 -g
 LIBS = -L./xcfun/lib/ -lxcfun
 
 include Makefile.common
@@ -39,7 +39,7 @@ MKL_ROOT = /opt/intel/mkl/
 
 FCC = gfortran-12
 FFLAGS = -O3 -g -I xcfun/fortran -fopenmp
-LIBS = -L./xcfun/lib/ -lxcfun
+LIBS = -L./xcfun/lib/ -lxcfun -lopenblas
 
 include Makefile.common
 EOF
@@ -48,10 +48,10 @@ fi
 
 rm -f gammcor
 make -j 8
+mv gammcor /usr/bin/
+cd ..
+rm -rf /opt/GAMMCOR
 
-# Test
-
-ls gammcor || exit 1
 
 
 # Clean up

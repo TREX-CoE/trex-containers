@@ -19,7 +19,7 @@ From: ubuntu:22.04
 %setup
     mkdir -p ${APPTAINER_ROOTFS}/opt/install
     cp environment.sh  ${APPTAINER_ROOTFS}/opt/
-    cp qp2.def \
+    cp gammcor.def \
        ../src/install_compilers.sh           \
        ../src/install_gammcor.sh            \
        ../src/install_trexio_python.sh \
@@ -41,14 +41,8 @@ From: ubuntu:22.04
     ./install_trexio_python.sh
     ./install_gammcor.sh
     ./cleanup_compilers.sh
-
     ./cleanup.sh
 
-%runscript
-    exec /opt/qp2/bin/qpsh "$@"
-
-#%test
-#    ls /opt/qp2/quantum_package.rc || exit 1
-#    ls /opt/qp2/src/hartree_fock/scf || exit 1
-#    ls /opt/qp2/ocaml/qp_edit || exit 1
+%test
+    ls /usr/bin/gammcor || exit 1
 
