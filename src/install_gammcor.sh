@@ -15,7 +15,7 @@ cd GAMMCOR
 mkdir OBJ
 
 cd xcfun
-make -j 8 -f Makefile
+make -j 8 -f Makefile.gcc
 cd ..
 
 if [ $ARCH = x86_64 ] ; then
@@ -29,10 +29,6 @@ include Makefile.common
 EOF
 
 elif [ $ARCH = aarch64 ] ; then
-
-cd xcfun
-make -j 8 -f Makefile.gcc
-cd ..
 
 cat << EOF > Makefile
 MKL_ROOT = /opt/intel/mkl/
