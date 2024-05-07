@@ -19,6 +19,7 @@ if [ $ARCH = x86_64 ] ; then
 cd xcfun
 sed -i "s/icc/icx/g" Makefile
 sed -i "s/icpc/icpx/g" Makefile
+make -f Makefile clean
 make -f Makefile
 cd ..
 
@@ -37,13 +38,14 @@ cd xcfun
 sed -i "s/g++/g++-12 -fPIC -march=armv8-a/g" Makefile.gcc
 sed -i "s/gcc/gcc-12 -fPIC -march=armv8-a/g" Makefile.gcc
 sed -i "s/gfortran/gfortran-12 -fPIC -march=armv8-a/g" Makefile.gcc
+make -f Makefile.gcc clean
 make -f Makefile.gcc
 cd ..
 
 
 cat << EOF > Makefile
 FCC = gfortran-12 -march=armv8-a 
-FFLAGS = -O3 -g -I xcfun/fortran -fopenmp -std=legacy -fPIC -fallow-argument-mismatch
+FFLAGS = -O3 -g -I xcfun/fortran -fopenmp -std=legacy -fallow-argument-mismatch
 LIBS = -L./xcfun/lib/ -lxcfun -lopenblas
 
 include Makefile.common
