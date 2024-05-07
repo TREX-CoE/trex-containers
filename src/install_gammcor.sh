@@ -24,7 +24,7 @@ cd ..
 
 
 cat << EOF > Makefile
-FCC = ifort -mkl=parallel -qopenmp
+FCC = ifort -qmkl=parallel -qopenmp
 FFLAGS = -assume byterecl -heap-arrays -I xcfun/fortran -O3 -g
 LIBS = -L./xcfun/lib/ -lxcfun
 
@@ -34,13 +34,14 @@ EOF
 elif [ $ARCH = aarch64 ] ; then
 
 cd xcfun
+sed -i "s/g++/g++-12/g" Makefile
+sed -i "s/gcc/gcc-12/g" Makefile
+sed -i "s/gfortran/gfortran-12/g" Makefile
 make -f Makefile.gcc
 cd ..
 
 
 cat << EOF > Makefile
-MKL_ROOT = /opt/intel/mkl/
-
 FCC = gfortran-12
 FFLAGS = -O3 -g -I xcfun/fortran -fopenmp -std=legacy
 LIBS = -L./xcfun/lib/ -lxcfun -lopenblas
