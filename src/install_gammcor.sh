@@ -19,7 +19,7 @@ if [ $ARCH = x86_64 ] ; then
 cd xcfun
 sed -i "s/icc/icx/g" Makefile
 sed -i "s/icpc/icpx/g" Makefile
-make -j 8 -f Makefile
+make -f Makefile
 cd ..
 
 
@@ -34,7 +34,7 @@ EOF
 elif [ $ARCH = aarch64 ] ; then
 
 cd xcfun
-make -j 8 -f Makefile.gcc
+make -f Makefile.gcc
 cd ..
 
 
@@ -51,7 +51,7 @@ EOF
 fi
 
 rm -f gammcor
-make -j 8
+make
 mv gammcor /usr/bin/
 cd ..
 rm -rf /opt/GAMMCOR
