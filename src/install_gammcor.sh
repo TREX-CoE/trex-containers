@@ -34,16 +34,16 @@ EOF
 elif [ $ARCH = aarch64 ] ; then
 
 cd xcfun
-sed -i "s/g++/g++-12 -fPIC/g" Makefile.gcc
-sed -i "s/gcc/gcc-12 -fPIC/g" Makefile.gcc
-sed -i "s/gfortran/gfortran-12 -fPIC/g" Makefile.gcc
+sed -i "s/g++/g++-12 -fPIC -march=armv8-a/g" Makefile.gcc
+sed -i "s/gcc/gcc-12 -fPIC -march=armv8-a/g" Makefile.gcc
+sed -i "s/gfortran/gfortran-12 -fPIC -march=armv8-a/g" Makefile.gcc
 make -f Makefile.gcc
 cd ..
 
 
 cat << EOF > Makefile
-FCC = gfortran-12
-FFLAGS = -O3 -g -I xcfun/fortran -fopenmp -std=legacy
+FCC = gfortran-12 -march=armv8-a 
+FFLAGS = -O3 -g -I xcfun/fortran -fopenmp -std=legacy -fPIC -fallow-argument-mismatch
 LIBS = -L./xcfun/lib/ -lxcfun -lopenblas
 
 include Makefile.common
