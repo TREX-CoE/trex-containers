@@ -42,7 +42,7 @@ cat << EOF > Makefile
 MKL_ROOT = /opt/intel/mkl/
 
 FCC = gfortran-12
-FFLAGS = -O3 -g -I xcfun/fortran -fopenmp
+FFLAGS = -O3 -g -I xcfun/fortran -fopenmp -std=legacy
 LIBS = -L./xcfun/lib/ -lxcfun -lopenblas
 
 include Makefile.common
