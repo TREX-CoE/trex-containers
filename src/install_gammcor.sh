@@ -14,11 +14,14 @@ git clone --depth=1 https://github.com/pernalk/GAMMCOR.git
 cd GAMMCOR
 mkdir OBJ
 
+if [ $ARCH = x86_64 ] ; then
+
 cd xcfun
-make -j 8 -f Makefile.gcc
+sed -i "s/icc/icx" Makefile
+sed -i "s/icpc/icpx" Makefile
+make -j 8 -f Makefile
 cd ..
 
-if [ $ARCH = x86_64 ] ; then
 
 cat << EOF > Makefile
 FCC = ifort -mkl=parallel -qopenmp
@@ -29,6 +32,11 @@ include Makefile.common
 EOF
 
 elif [ $ARCH = aarch64 ] ; then
+
+cd xcfun
+make -j 8 -f Makefile.gcc
+cd ..
+
 
 cat << EOF > Makefile
 MKL_ROOT = /opt/intel/mkl/
