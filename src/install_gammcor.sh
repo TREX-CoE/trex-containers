@@ -19,7 +19,7 @@ if [ $ARCH = x86_64 ] ; then
 cd xcfun
 sed -i "s/icc/icx/g" Makefile
 sed -i "s/icpc/icpx/g" Makefile
-rm -f src/functionallist_of_functionals.o
+rm -f src/functionals/list_of_functionals.o
 make -f Makefile
 cd ..
 
