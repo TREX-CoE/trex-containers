@@ -31,6 +31,7 @@ git clone https://github.com/trex-coe/qmcchem2.git \
           --branch=master --depth=1 --shallow-submodules
 
 cd /opt/qmcchem2
+./autogen.sh
 
 ./configure --prefix=/usr
 make -j
