@@ -8,31 +8,36 @@ From: ubuntu:22.04
    apt_cacher="no"
 
 %help
-    Container for running CHAMP.
+    Container for running TREX software.
 
 %environment
     export LANG="C"
     export LANGUAGE=$LANG
     export LC_ALL=$LANG
-    export OMP_NUM_THREADS=1
 
 %setup
     mkdir -p ${APPTAINER_ROOTFS}/opt/install
     cp environment.sh  ${APPTAINER_ROOTFS}/opt/
-    cp champ.def \
+    cp qp2.def \
        ../src/install_compilers.sh     \
        ../src/install_champ.sh         \
+       ../src/install_turborvb.sh      \
+       ../src/install_qp2.sh           \
        ../src/install_trexio_python.sh \
        ../src/install_trexio.sh        \
        ../src/install_qmckl.sh         \
-       ../src/cleanup_compilers.sh     \
+       ../src/install_gammcor.sh       \
+       ../src/install_neci.sh          \
+       ../src/install_turbogenius.sh   \
        ../src/setup_image.sh           \
+       ../src/cleanup_compilers.sh     \
        ../src/cleanup.sh               \
        ${APPTAINER_ROOTFS}/opt/install
 
 %post
     ARCH=$(uname -i)
     export APT_CACHER={{ apt_cacher }}
+    export INSTALL_QMCCHEM="yes"
 
     cd /opt/install
     ./setup_image.sh
@@ -41,15 +46,28 @@ From: ubuntu:22.04
     ./install_trexio.sh
     ./install_trexio_python.sh
     ./install_qmckl.sh
+    ./install_qp2.sh
+    ./install_turborvb.sh
+    ./install_turbogenius.sh
     ./install_champ.sh
+    ./install_gammcor.sh
+    ./install_neci.sh
     ./cleanup_compilers.sh
 
     ./cleanup.sh
 
 %runscript
-    exec /bin/bash "$@"
+    exec /opt/qp2/bin/qpsh "$@"
 
 %test
+    ls /opt/qp2/quantum_package.rc || exit 1
+    ls /opt/qp2/src/hartree_fock/scf || exit 1
+    ls /opt/qp2/ocaml/qp_edit || exit 1
+    ls /opt/qmcchem2/bin/qmcchem || exit 1
+    ls /opt/qmcchem2/bin/qmc || exit 1
     ls /opt/champ/bin/vmc.mov1 || exit 1
     ls /opt/champ/bin/dmc.mov1 || exit 1
+    ls /usr/bin/gammcor || exit 1
+    ls /opt/turborvb/bin/makefort10.x || exit 1
+
 

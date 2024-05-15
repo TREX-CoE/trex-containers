@@ -23,13 +23,13 @@ From: ubuntu:22.04
     mkdir -p ${APPTAINER_ROOTFS}/opt/install
     cp environment.sh  ${APPTAINER_ROOTFS}/opt/
     cp turborvb.def \
-       ../src/install_compilers.sh           \
-       ../src/install_turborvb.sh            \
-       ../src/install_trexio_python.sh      \
-       ../src/install_turbogenius.sh            \
-       ../src/cleanup_compilers.sh           \
+       ../src/install_compilers.sh     \
+       ../src/install_turborvb.sh      \
+       ../src/install_trexio_python.sh \
+       ../src/install_turbogenius.sh   \
+       ../src/cleanup_compilers.sh     \
        ../src/setup_image.sh           \
-       ../src/cleanup.sh \
+       ../src/cleanup.sh               \
        ${APPTAINER_ROOTFS}/opt/install
 
 %post

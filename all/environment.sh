@@ -21,6 +21,15 @@ else
 
 fi
 
-export OMP_NUM_THREADS=1
-
 export PATH=$PATH:/opt/champ/bin
+export PATH=$PATH:/opt/turborvb/bin
+
+source /opt/qp2/quantum_package.rc || :
+
+# QMC=Chem environment variables
+export QMCCHEM_PATH="/opt/qmcchem2"
+export PATH="${QMCCHEM_PATH}/bin:${PATH}"
+export QMCCHEM_MPIRUN="mpirun"
+export QMCCHEM_MPIRUN_FLAGS=""
+#export QMCCHEM_NIC="ib0"
+
