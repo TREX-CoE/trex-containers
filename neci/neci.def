@@ -1,0 +1,52 @@
+BootStrap: docker
+From: ubuntu:22.04
+
+%labels
+    Author scemama@irsamc.ups-tlse.fr
+
+%arguments
+   apt_cacher="no"
+
+%help
+    Container for running CHAMP.
+
+%environment
+    export LANG="C"
+    export LANGUAGE=$LANG
+    export LC_ALL=$LANG
+    export OMP_NUM_THREADS=1
+
+%setup
+    mkdir -p ${APPTAINER_ROOTFS}/opt/install
+    cp environment.sh  ${APPTAINER_ROOTFS}/opt/
+    cp neci.def \
+       ../src/install_compilers.sh           \
+       ../src/install_neci.sh            \
+       ../src/install_trexio_python.sh \
+       ../src/install_trexio.sh        \
+       ../src/cleanup_compilers.sh           \
+       ../src/setup_image.sh           \
+       ../src/cleanup.sh \
+       ${APPTAINER_ROOTFS}/opt/install
+
+%post
+    ARCH=$(uname -i)
+    export APT_CACHER={{ apt_cacher }}
+
+    cd /opt/install
+    ./setup_image.sh
+
+    ./install_compilers.sh
+    ./install_trexio.sh
+    ./install_trexio_python.sh
+    ./install_neci.sh
+    ./cleanup_compilers.sh
+
+    ./cleanup.sh
+
+%runscript
+    exec /bin/bash "$@"
+
+%test
+    ls /opt/neci/bin/vmc.mov1 || exit 1
+
