@@ -22,5 +22,11 @@ else
 fi
 
 source /opt/qp2/quantum_package.rc || :
-export QMCCHEM_MPIRUN=mpirun
+
+# QMC=Chem environment variables
+export QMCCHEM_PATH="/opt/qmcchem2"
+export PATH="${QMCCHEM_PATH}/bin:${PATH}"
+export QMCCHEM_MPIRUN="mpirun"
+export QMCCHEM_MPIRUN_FLAGS=""
+#export QMCCHEM_NIC="ib0"
 

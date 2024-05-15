@@ -8,7 +8,7 @@ source environment.sh
 
 APT_REQUIRED="bash python3 vim-nox emacs-nox"
 APT_NOT_REQUIRED="git wget curl unzip make bzip2 libzmq3-dev python3-pip m4 mlocate\
-              autoconf autotools-dev pkg-config libhdf5-dev libzmq3-dev"
+              autoconf iproute2 autotools-dev pkg-config libhdf5-dev libzmq3-dev"
 
 apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
 
@@ -31,24 +31,27 @@ elif [ $ARCH = aarch64 ] ; then
 fi
 
 source quantum_package.rc
+ninja
 
 if [ x.$INSTALL_QMCCHEM = x.yes ] ; then
     qp plugins download https://gitlab.com/scemama/qp_plugins_scemama
     qp plugins install qmcchem
+    ninja
 
+    cd /opt
     git clone https://github.com/trex-coe/qmcchem2.git \
     	  --branch=master --depth=1 --shallow-submodules
 
     cd /opt/qmcchem2
     ./autogen.sh
 
-    ./configure --prefix=/usr
+    ./configure
+    source qmcchemrc
     make -j
-    make install
-
+    make clean-irpf90
+    cd /opt/qp2
 fi
 
-ninja
 ninja tidy
 
 # Test
