@@ -6,6 +6,7 @@ From: ubuntu:22.04
 
 %arguments
    apt_cacher="no"
+   qmcchem="no"
 
 %help
     Container for running QP2.
@@ -25,6 +26,7 @@ From: ubuntu:22.04
        ../src/install_trexio_python.sh \
        ../src/install_trexio.sh        \
        ../src/install_qmckl.sh         \
+       ../src/install_qmcchem.sh         \
        ../src/cleanup_compilers.sh           \
        ../src/setup_image.sh           \
        ../src/cleanup.sh \
@@ -33,6 +35,7 @@ From: ubuntu:22.04
 %post
     ARCH=$(uname -i)
     export APT_CACHER={{ apt_cacher }}
+    export INSTALL_QMCCHEM="{{ qmcchem }}"
 
     cd /opt/install
     ./setup_image.sh
@@ -42,6 +45,9 @@ From: ubuntu:22.04
     ./install_trexio_python.sh
     ./install_qmckl.sh
     ./install_qp2.sh
+    if [ "{{ qmcchem }}" = "yes" ] ; then
+       ./install_qmcchem.sh
+    fi
     ./cleanup_compilers.sh
 
     ./cleanup.sh
@@ -53,4 +59,8 @@ From: ubuntu:22.04
     ls /opt/qp2/quantum_package.rc || exit 1
     ls /opt/qp2/src/hartree_fock/scf || exit 1
     ls /opt/qp2/ocaml/qp_edit || exit 1
+    if [ "{{ qmcchem }}" = "yes" ] ; then
+       ls /usr/bin/qmc || exit 1
+       ls /usr/bin/qmcchem || exit 1
+    fi
 

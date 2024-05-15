@@ -8,7 +8,7 @@ source environment.sh
 
 APT_REQUIRED="bash python3 vim-nox emacs-nox"
 APT_NOT_REQUIRED="git wget curl unzip make bzip2 libzmq3-dev python3-pip m4 mlocate\
-              autotools-dev pkg-config libhdf5-dev libzmq3-dev"
+              autoconf autotools-dev pkg-config libhdf5-dev libzmq3-dev"
 
 apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
 
@@ -22,7 +22,7 @@ pip install trexio
 
 if [ $ARCH = x86_64 ] ; then
 
-  ./configure -c ~/qp2/config/ifort_2021_rome.cfg
+  ./configure -c ./config/ifort_2021_rome.cfg
 
 elif [ $ARCH = aarch64 ] ; then
 
@@ -31,6 +31,23 @@ elif [ $ARCH = aarch64 ] ; then
 fi
 
 source quantum_package.rc
+
+if [ x.$INSTALL_QMCCHEM = x.yes ] ; then
+    qp plugins download https://gitlab.com/scemama/qp_plugins_scemama
+    qp plugins install qmcchem
+
+    git clone https://github.com/trex-coe/qmcchem2.git \
+    	  --branch=master --depth=1 --shallow-submodules
+
+    cd /opt/qmcchem2
+    ./autogen.sh
+
+    ./configure --prefix=/usr
+    make -j
+    make install
+
+fi
+
 ninja
 ninja tidy
 

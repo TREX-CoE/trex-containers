@@ -22,3 +22,5 @@ else
 fi
 
 source /opt/qp2/quantum_package.rc || :
+export QMCCHEM_MPIRUN=mpirun
+
