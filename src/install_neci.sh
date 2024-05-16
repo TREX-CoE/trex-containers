@@ -13,26 +13,33 @@ apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
 git clone --depth=1 https://github.com/ghb24/NECI_STABLE.git
 
 
-cd NECI_STABLE
+mv NECI_STABLE neci
+cd neci
 
 if [ $ARCH = x86_64 ] ; then
 
+  sed -i "s/-xHost//" ./cmake/compiler_flags/Intel_Fortran.cmake
+  sed -i "s/-xHost//" ./cmake/compiler_flags/Intel_C.cmake
+  sed -i "s/-xHost//" ./cmake/compiler_flags/Intel_CXX.cmake
+
   cmake -S. -Bbuild \
       -DCMAKE_Fortran_COMPILER="mpiifort" \
-      -DENABLE_C_COMPILER="mpiicx" \
-      -DENABLE_CXX_COMPILER="mpiicpx" \
+      -DCMAKE_C_COMPILER="mpiicx" \
+      -DCMAKE_CXX_COMPILER="mpiicpx" \
       -DENABLE_HDF5=ON \
       -DENABLE_BUILD_HDF5=ON
 
 elif [ $ARCH = aarch64 ] ; then
 
+  sed -i "s/-march=native -mtune=native/-march=armv8-a/" ./cmake/compiler_flags/GNU_Fortran.cmake
+	
   export OMPI_ALLOW_RUN_AS_ROOT=1
   export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 
   cmake -S. -Bbuild \
       -DCMAKE_Fortran_COMPILER="mpifort" \
-      -DENABLE_C_COMPILER="mpicc" \
-      -DENABLE_CXX_COMPILER="mpicxx" \
+      -DCMAKE_C_COMPILER="mpicc" \
+      -DCMAKE_CXX_COMPILER="mpicxx" \
       -DENABLE_HDF5=ON \
       -DENABLE_BUILD_HDF5=ON
 
@@ -42,8 +49,7 @@ cmake --build build -j 8
 
 # Test
 
-ls bin/vmc.mov1 || exit 1
-ls bin/dmc.mov1 || exit 1
+ls build/bin/neci || exit 1
 
 
 # Clean up

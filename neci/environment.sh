@@ -23,4 +23,4 @@ fi
 
 export OMP_NUM_THREADS=1
 
-export PATH=$PATH:/opt/neci/bin
+export PATH=$PATH:/opt/neci/build/bin/
