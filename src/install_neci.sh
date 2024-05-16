@@ -14,7 +14,7 @@ git clone --depth=1 https://github.com/ghb24/NECI_STABLE.git
 
 
 mv NECI_STABLE neci
-cd neci
+cd /opt/neci
 
 if [ $ARCH = x86_64 ] ; then
 
@@ -47,10 +47,13 @@ fi
 
 cmake --build build -j 8
 
+mkdir bin
+mv build/bin/neci bin/
+
 # Test
 
-ls build/bin/neci || exit 1
 
+ls bin/neci || exit 1
 
 # Clean up
 rm -rf compile-* docs tests build lib

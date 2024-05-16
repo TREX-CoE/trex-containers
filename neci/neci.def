@@ -48,5 +48,5 @@ From: ubuntu:22.04
     exec /bin/bash "$@"
 
 %test
-    ls /opt/neci/build/bin/neci || exit 1
+    ls /opt/neci/bin/neci || exit 1
 
