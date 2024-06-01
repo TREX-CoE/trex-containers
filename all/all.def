@@ -18,7 +18,7 @@ From: ubuntu:22.04
 %setup
     mkdir -p ${APPTAINER_ROOTFS}/opt/install
     cp environment.sh  ${APPTAINER_ROOTFS}/opt/
-    cp qp2.def \
+    cp all.def \
        ../src/install_compilers.sh     \
        ../src/install_champ.sh         \
        ../src/install_turborvb.sh      \
