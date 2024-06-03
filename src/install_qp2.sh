@@ -22,7 +22,7 @@ pip install trexio
 
 if [ $ARCH = x86_64 ] ; then
 
-  ./configure -c ./config/ifort_2021_rome.cfg
+  ./configure -c ./config/gfortran_mkl.cfg
 
 elif [ $ARCH = aarch64 ] ; then
 
