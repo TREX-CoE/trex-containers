@@ -45,7 +45,7 @@ if [ x.$INSTALL_QMCCHEM = x.yes ] ; then
     cd /opt/qmcchem2
     ./autogen.sh
 
-    ./configure
+    ./configure FCFLAGS="-ffree-line-length-none -std=legacy -g"
     source qmcchemrc
     make -j
     make clean-irpf90
