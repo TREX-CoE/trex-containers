@@ -9,6 +9,7 @@ if [ $ARCH = x86_64 ] ; then
         source /opt/intel/oneapi/setvars.sh &>/dev/null || :
         export FC=ifort
         export CC=icx
+	export INCLUDE=/opt/intel/oneapi/compiler/2024.1/opt/compiler/include/intel64/
 
 elif [ $ARCH = aarch64 ] ; then
 
