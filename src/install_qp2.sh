@@ -23,6 +23,7 @@ pip install trexio
 if [ $ARCH = x86_64 ] ; then
 
   ./configure -c ./config/ifort_2021_rome.cfg
+  apt remove -y gfortran  # Conflict with omp_lib
 
 elif [ $ARCH = aarch64 ] ; then
 
