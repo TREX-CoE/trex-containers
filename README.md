@@ -21,12 +21,12 @@ This repository includes Apptainer recipes for creating:
 - A unified container that contains all the TREX-CoE software, facilitating easy access and deployment of the entire suite.
 - Individual containers for each code within the TREX-CoE suite, allowing users to deploy specific tools as needed.
 
-- [https://cloud.sylabs.io/library/scemama/trex/all](All software)
-- [https://cloud.sylabs.io/library/scemama/trex/qp2-qmcchem](Quantum Package + QMC=Chem)
-- [https://cloud.sylabs.io/library/scemama/trex/turborvb](Turbo RVB)
-- [https://cloud.sylabs.io/library/scemama/trex/champ](CHAMP)
-- [https://cloud.sylabs.io/library/scemama/trex/gammcor](GammCor)
-- [https://cloud.sylabs.io/library/scemama/trex/neci](NECI)
+- [All software](https://cloud.sylabs.io/library/scemama/trex/all)
+- [Quantum Package + QMC=Chem](https://cloud.sylabs.io/library/scemama/trex/qp2-qmcchem)
+- [Turbo RVB](https://cloud.sylabs.io/library/scemama/trex/turborvb)
+- [CHAMP](https://cloud.sylabs.io/library/scemama/trex/champ)
+- [GammCor](https://cloud.sylabs.io/library/scemama/trex/gammcor)
+- [NECI](https://cloud.sylabs.io/library/scemama/trex/neci)
 
 ### Supported Architectures
 - **x86_64 with AVX2 Support:** Optimized for modern Intel and AMD processors
