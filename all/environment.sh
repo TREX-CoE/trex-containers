@@ -22,6 +22,7 @@ else
 fi
 
 export PATH=$PATH:/opt/champ/bin
+export PATH=$PATH:/opt/neci/bin
 export PATH=$PATH:/opt/turborvb/bin
 
 source /opt/qp2/quantum_package.rc || :
