@@ -31,15 +31,19 @@ if [ $ARCH = x86_64 ] ; then
 
 elif [ $ARCH = aarch64 ] ; then
 
+  APT_REQUIRED="openmpi-bin"
+  APT_NOT_REQUIRED="libopenmpi-dev"
+  apt install -y $APT_REQUIRED $APT_NOT_REQUIRED
+
   sed -i "s/-march=native -mtune=native/-march=armv8-a/" ./cmake/compiler_flags/GNU_Fortran.cmake
-	
+
   export OMPI_ALLOW_RUN_AS_ROOT=1
   export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 
-  cmake -S. -Bbuild \
-      -DCMAKE_Fortran_COMPILER="mpifort" \
-      -DCMAKE_C_COMPILER="mpicc" \
-      -DCMAKE_CXX_COMPILER="mpicxx" \
+  cmake -S. -Bbuild --debug-find \
+      -DCMAKE_Fortran_COMPILER="/usr/bin/mpifort.openmpi" \
+      -DCMAKE_C_COMPILER="/usr/bin/mpicc.openmpi" \
+      -DCMAKE_CXX_COMPILER="/usr/bin/mpicxx.openmpi" \
       -DENABLE_HDF5=ON \
       -DENABLE_BUILD_HDF5=ON
 
